@@ -28,13 +28,14 @@ public class AllPeopleWindow extends BasicWindow {
         );
         ActionListBox alb = new ActionListBox();
         panel.addComponent(alb);
-
         ArrayList<Person> people = service.getPeople();
         int id;
         for (Person person : people) {
             int i = person.url().indexOf("people/") + "people/".length();
             id = Integer.valueOf(person.url().substring(i, person.url().length() - 1));
             alb.addItem("(" + id + ")" + person.name(), () -> {
+                //System.out.println("Here " + person.name() + "!");
+                ui.showPersonWindow(person);
             });
         }
         panel.addComponent(new Button("Back", () -> ui.closeWindow(this)));

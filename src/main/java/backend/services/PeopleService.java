@@ -12,13 +12,15 @@ public class PeopleService {
     HttpClient starWarsClient;
     String baseUrl;
 
+    ArrayList<Person> results = new ArrayList<>();
+
     public PeopleService(HttpClient starWarsClient, String baseUrl) {
         this.starWarsClient = starWarsClient;
         this.baseUrl = Helpers.normalizeBaseURL(baseUrl);
     }
 
     public ArrayList<Person> getPeople() {
-        ArrayList<Person> results = new ArrayList<>();
+        if(results.size() != 0) return results;
         People result;
         String nextURL = "";
         try {
