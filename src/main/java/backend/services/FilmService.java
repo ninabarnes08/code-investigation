@@ -20,7 +20,7 @@ public class FilmService {
     }
 
     public ArrayList<Film> getFilms(){
-        if(results.size() != 0) return results;
+        if(!results.isEmpty()) return results;
         FilmPage result;
         String nextURL = "";
         try{
