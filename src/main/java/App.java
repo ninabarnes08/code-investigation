@@ -1,5 +1,7 @@
 import backend.HttpClient;
+import backend.services.FilmService;
 import backend.services.PeopleService;
+import backend.services.PlanetService;
 import ui.Gui;
 import ui.UIController;
 
@@ -20,10 +22,12 @@ public class App {
 
             // Services
             PeopleService peopleService = new PeopleService(starWarsClient, "people/");
+            PlanetService planetService = new PlanetService(starWarsClient, "planets/"); //dependency injection (DI)
+            FilmService filmService = new FilmService(starWarsClient, "films/");
             // GUI
             Gui gui = new Gui();
             gui.start();
-            UIController ui = new UIController(gui, peopleService);
+            UIController ui = new UIController(gui, peopleService, planetService, filmService);
             ui.showMainMenu();
 
         } catch (

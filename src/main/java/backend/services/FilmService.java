@@ -2,36 +2,36 @@ package backend.services;
 
 import backend.Helpers;
 import backend.HttpClient;
-import models.People;
-import models.Person;
+import models.Film;
+import models.FilmPage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class PeopleService {
+public class FilmService {
     HttpClient starWarsClient;
     String baseURL;
 
-    ArrayList<Person> results = new ArrayList<>();
+    ArrayList<Film> results = new ArrayList<>();
 
-    public PeopleService(HttpClient starWarsClient, String baseUrl) {
+    public FilmService(HttpClient starWarsClient, String baseURL){
         this.starWarsClient = starWarsClient;
-        this.baseURL = Helpers.normalizeBaseURL(baseUrl);
+        this.baseURL = Helpers.normalizeBaseURL(baseURL);
     }
 
-    public ArrayList<Person> getPeople() {
+    public ArrayList<Film> getFilms(){
         if(results.size() != 0) return results;
-        People result;
+        FilmPage result;
         String nextURL = "";
-        try {
-            while (true) {
-                result = starWarsClient.getOne(baseURL + nextURL, People.class);
+        try{
+            while(true){
+                result = starWarsClient.getOne(baseURL + nextURL, FilmPage.class);
                 results.addAll(result.results());
-                if (result.next() == null) break;
+                if(result.next() == null) break;
                 nextURL = result.next().substring(result.next().indexOf("?"));
             }
             return results;
-        } catch (IOException e) {
+        } catch (IOException e){
             throw new RuntimeException(e);
         }
     }
